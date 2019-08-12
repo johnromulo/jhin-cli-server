@@ -10,7 +10,6 @@ import radisConfig from './config/radis';
 import UserController from './app/controllers/UserController';
 import AccessManagementController from './app/controllers/AccessManagementController';
 import AuthenticatorController from './app/controllers/AuthenticatorController';
-import UploadFileController from './app/controllers/UploadFileController';
 
 import validateUserStore from './app/validators/UserStore';
 import validateUserUpdate from './app/validators/UserUpdate';
@@ -37,8 +36,6 @@ routes.post(
   AuthenticatorController.store
 );
 routes.post('/users', validateUserStore, UserController.store);
-
-routes.post('/uploadFile', upload.single('file'), UploadFileController.store);
 
 routes.use(authMiddleware);
 
