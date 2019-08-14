@@ -1,7 +1,9 @@
 import Bee from 'bee-queue';
 import radisConfig from '../config/radis';
 
-const jobs = [];
+import ScheduleJob from '../app/jobs/ScheduleJob';
+
+const jobs = [ScheduleJob];
 
 class Queue {
   constructor() {
@@ -14,7 +16,7 @@ class Queue {
     jobs.forEach(({ key, handle }) => {
       this.queues[key] = {
         bee: new Bee(key, {
-          radis: radisConfig,
+          redis: radisConfig,
         }),
         handle,
       };

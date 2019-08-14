@@ -2,14 +2,13 @@ import { Router } from 'express';
 import redis from 'redis';
 import Brute from 'express-brute';
 import BruteRedis from 'express-brute-redis';
-import multer from 'multer';
-import multerConfig from './config/multer';
 
 import radisConfig from './config/radis';
 
 import UserController from './app/controllers/UserController';
 import AccessManagementController from './app/controllers/AccessManagementController';
 import AuthenticatorController from './app/controllers/AuthenticatorController';
+import ExampleTaskScheduleController from './app/controllers/ExampleTaskScheduleController';
 
 import validateUserStore from './app/validators/UserStore';
 import validateUserUpdate from './app/validators/UserUpdate';
@@ -19,7 +18,6 @@ import validateAccessManagementUpdate from './app/validators/AccessManagementUpd
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
-const upload = multer(multerConfig);
 
 const bruteStore = new BruteRedis({
   client: redis.createClient({
@@ -36,6 +34,8 @@ routes.post(
   AuthenticatorController.store
 );
 routes.post('/users', validateUserStore, UserController.store);
+
+routes.get('/exampleSchedule', ExampleTaskScheduleController.store);
 
 routes.use(authMiddleware);
 
